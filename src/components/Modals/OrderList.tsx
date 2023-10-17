@@ -25,7 +25,7 @@ function OrderList() {
 
   const editOrder = (data: any, content: any, status: number) => {
     axios
-      .patch(`http://localhost:8000/orders/${data}/`, {
+      .patch(`http://185.209.230.204:8000/orders/${data}/`, {
         content: content,
         status: status,
         id: data,
@@ -48,7 +48,7 @@ function OrderList() {
   };
   useEffect(() => {
     axios
-      .get('http://localhost:8000/orders/', config)
+      .get('http://185.209.230.204:8000/orders/', config)
       .then(function (response) {
         setOrder(response.data);
       });

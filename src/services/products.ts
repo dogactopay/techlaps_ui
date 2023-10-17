@@ -8,7 +8,7 @@ export const getProducts = async () => {
 
   if (!isProduction) {
     response = await axios.get(
-      'http://localhost:8000/products/?format=json'
+      'http://185.209.230.204:8000/products/?format=json'
     );
   } else {
     response = require('static/json/products.json');

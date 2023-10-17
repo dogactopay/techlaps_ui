@@ -14,7 +14,7 @@ function AddProduct() {
   } = useForm();
   const onSubmit = (data: any) => {
     axios
-      .post('http://localhost:8000/products/', {
+      .post('http://185.209.230.204:8000/products/', {
         title: data.title,
         stock_qty: data.stock_qty,
         image: data.image,

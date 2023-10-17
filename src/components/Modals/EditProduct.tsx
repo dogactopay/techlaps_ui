@@ -14,7 +14,7 @@ function EditProduct(datak: any) {
   } = useForm();
   const onSubmit = (data: any) => {
     axios
-      .patch(`http://localhost:8000/products/${datak.product_id}/`, {
+      .patch(`http://185.209.230.204:8000/products/${datak.product_id}/`, {
         title: data.title,
         stock_qty: data.stock_qty,
         image: data.image,
@@ -34,7 +34,7 @@ function EditProduct(datak: any) {
   const onDelete = () => {
     if (window.confirm('Ürün silinsin mi?')) {
       axios
-        .delete(`http://localhost:8000/products/${datak.product_id}/`)
+        .delete(`http://185.209.230.204:8000/products/${datak.product_id}/`)
         .then(function (response) {
           toast.success('Ürün Silindi!');
           setTimeout(() => {

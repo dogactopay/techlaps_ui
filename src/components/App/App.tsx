@@ -31,7 +31,7 @@ function App() {
       // Other user data
     };
     axios
-      .post('http://localhost:8000/auth/login/', userData)
+      .post('http://185.209.230.204:8000/auth/login/', userData)
       .then(function (response) {
         if (response.data) {
           setIsLoggedIn(true);

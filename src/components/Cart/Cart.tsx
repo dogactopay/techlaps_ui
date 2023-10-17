@@ -15,7 +15,7 @@ const Cart = () => {
     if (total.productQuantity) {
       const idx = localStorage.getItem('idx');
       axios
-        .post('http://localhost:8000/products/get_cart/', {
+        .post('http://185.209.230.204:8000/products/get_cart/', {
           user: idx,
           order: products,
         })
