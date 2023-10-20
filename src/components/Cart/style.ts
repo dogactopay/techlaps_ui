@@ -144,6 +144,12 @@ export const SubPriceValue = styled.p`
   margin: 0;
 `;
 
+export const SubPriceValue1 = styled.p`
+  color: ${({ theme }) => theme.colors.secondary};
+  font-size: 15px;
+  margin: 0;
+`;
+
 export const SubPriceInstallment = styled.p`
   margin: 0;
 `;

@@ -5,6 +5,7 @@ import Filter from 'components/Filter';
 import Products from 'components/Products';
 import AddProduct from 'components/Modals/AddProduct';
 import OrderList from 'components/Modals/OrderList';
+import StockMoves from 'components/Modals/StockMoves';
 import Cart from 'components/Cart';
 import { useProducts } from 'contexts/products-context';
 import * as S from './style';
@@ -23,6 +24,7 @@ function App() {
 
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
 
   const handleLogin = (username: string, password: string) => {
     const userData = {
@@ -31,7 +33,7 @@ function App() {
       // Other user data
     };
     axios
-      .post('http://185.209.230.204:8000/auth/login/', userData)
+      .post('http://localhost:8000/auth/login/', userData)
       .then(function (response) {
         if (response.data) {
           setIsLoggedIn(true);
@@ -99,6 +101,18 @@ function App() {
                 </p>
                 <Modal open={open1} onClose={() => setOpen1(false)} center>
                   <OrderList />
+                </Modal>
+              </S.ItemDiv>
+              <S.ItemDiv>
+                <p onClick={() => setOpen2(true)}>
+                  {localStorage.getItem('is_staff') === 'true' ? (
+                    <Button variant="warning">Stok Hareketleri</Button>
+                  ) : (
+                    ""
+                  )}
+                </p>
+                <Modal open={open2} onClose={() => setOpen2(false)} center>
+                  <StockMoves />
                 </Modal>
               </S.ItemDiv>
               <S.ItemDiv>

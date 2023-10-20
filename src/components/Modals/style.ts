@@ -1,9 +1,18 @@
-import styled from 'styled-components/macro';
+import styled from "styled-components/macro";
 
 export const Img = styled.img`
   width: 20em;
   position: relative;
-  right:-25em;
+  right: -25em;
+`;
+
+export const Plus = styled.span`
+  color: #fff;
+  font-weight: bold;
+`;
+export const Minus = styled.span`
+  color: #fff;
+  font-weight: bold;
 `;
 
 export const Container = styled.div`

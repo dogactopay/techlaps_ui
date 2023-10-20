@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { useForm } from 'react-hook-form';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-import * as S from './style';
+import React from "react";
+import ReactDOM from "react-dom";
+import { useForm } from "react-hook-form";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import * as S from "./style";
 
 function ProductDetail(datak: any) {
   const {
@@ -15,14 +15,14 @@ function ProductDetail(datak: any) {
   } = useForm();
   const onSubmit = (data: any) => {
     axios
-      .patch(`http://185.209.230.204:8000/products/${datak.product_id}/`, {
+      .patch(`http://localhost:8000/products/${datak.product_id}/`, {
         title: data.title,
         stock_qty: data.stock_qty,
 
         // Other user data
       })
       .then(function (response) {
-        toast.success('Ürün Değişti!');
+        toast.success("Ürün Değişti!");
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -32,11 +32,11 @@ function ProductDetail(datak: any) {
   };
 
   const onDelete = () => {
-    if (window.confirm('Ürün silinsin mi?')) {
+    if (window.confirm("Ürün silinsin mi?")) {
       axios
-        .delete(`http://185.209.230.204:8000/products/${datak.product_id}/`)
+        .delete(`http://localhost:8000/products/${datak.product_id}/`)
         .then(function (response) {
-          toast.success('Ürün Silindi!');
+          toast.success("Ürün Silindi!");
           setTimeout(() => {
             window.location.reload();
           }, 1000);
@@ -50,6 +50,10 @@ function ProductDetail(datak: any) {
       <hr />
       <h4>{datak.title}</h4>
       <h5>Stok Miktarı : {datak.stock_qty}</h5>
+      <h5>
+        Fiyat : {datak.price} {datak.currencyFormat}
+      </h5>
+      <h5>Desi : {datak.desi} </h5>
       <S.Img src={datak.image} />
     </>
   );

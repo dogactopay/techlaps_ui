@@ -4,7 +4,7 @@ import { ICartProduct } from 'models';
 
 const useCartProducts = () => {
   const { products, setProducts } = useCartContext();
-  const { updateCartTotal } = useCartTotal();
+  const { total,updateCartTotal } = useCartTotal();
 
   const updateQuantitySafely = (
     currentProduct: ICartProduct,

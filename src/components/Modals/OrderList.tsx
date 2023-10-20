@@ -1,31 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
-import Accordion from 'react-bootstrap/Accordion';
-import Table from 'react-bootstrap/Table';
+import React from "react";
+import ReactDOM from "react-dom";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import Accordion from "react-bootstrap/Accordion";
+import Table from "react-bootstrap/Table";
 
 function OrderList() {
   const [order, setOrder] = useState<any[]>([]);
 
   const formatDate = (dateString: any) => {
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('tr-TR').format(date);
+    return new Intl.DateTimeFormat("tr-TR").format(date);
   };
   const statuses: any = {
-    0: 'Bekliyor ⏳',
-    1: 'Onaylandı ✅',
-    2: 'Onaylanmadı ❌',
-    3: 'Tamamlandı 🏁',
+    0: "Bekliyor ⏳",
+    1: "Onaylandı ✅",
+    2: "Onaylanmadı ❌",
+    3: "Tamamlandı 🏁",
   };
 
   const editOrder = (data: any, content: any, status: number) => {
     axios
-      .patch(`http://185.209.230.204:8000/orders/${data}/`, {
+      .patch(`http://localhost:8000/orders/${data}/`, {
         content: content,
         status: status,
         id: data,
@@ -34,7 +34,7 @@ function OrderList() {
       })
       .then(function (response) {
         toast.success(
-          status === 1 ? 'Sipariş Onaylandı!' : 'Sipariş Onaylanmadı!'
+          status === 1 ? "Sipariş Onaylandı!" : "Sipariş Onaylanmadı!"
         );
         setTimeout(() => {
           window.location.reload();
@@ -44,11 +44,11 @@ function OrderList() {
     console.log(content);
   };
   const config = {
-    headers: { Authorization: `Token ${localStorage.getItem('token')}` },
+    headers: { Authorization: `Token ${localStorage.getItem("token")}` },
   };
   useEffect(() => {
     axios
-      .get('http://185.209.230.204:8000/orders/', config)
+      .get("http://localhost:8000/orders/", config)
       .then(function (response) {
         setOrder(response.data);
       });
@@ -79,8 +79,8 @@ function OrderList() {
                       </tr>
                     </tbody>
                   </Table>
-                  {item.status === 0  &&
-                  localStorage.getItem('is_staff') === 'true' ? (
+                  {item.status === 0 &&
+                  localStorage.getItem("is_staff") === "true" ? (
                     <>
                       <Button
                         variant="success"
@@ -96,7 +96,7 @@ function OrderList() {
                       </Button>
                     </>
                   ) : (
-                    ''
+                    ""
                   )}
 
                   <br></br>
@@ -111,6 +111,8 @@ function OrderList() {
                         <th>#</th>
                         <th colSpan={2}>Ürün Adı</th>
                         <th>Miktar</th>
+                        <th>Fiyat</th>
+                        <th>Toplam</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -120,6 +122,8 @@ function OrderList() {
                             <td>{i1 + 1}</td>
                             <td colSpan={2}>{item1.title}</td>
                             <td>{item1.quantity}</td>
+                            <td>{item1.price}{item1.currencyFormat}</td>
+                            <td>{item1.price * item1.quantity}{item1.currencyFormat}</td>
                           </tr>
                         );
                       })}

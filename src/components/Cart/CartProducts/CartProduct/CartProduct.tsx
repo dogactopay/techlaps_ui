@@ -1,16 +1,20 @@
-import formatPrice from 'utils/formatPrice';
-import { ICartProduct } from 'models';
+import formatPrice from "utils/formatPrice";
+import { ICartProduct } from "models";
 
-import { useCart } from 'contexts/cart-context';
+import { useCart } from "contexts/cart-context";
 
-import * as S from './style';
+import * as S from "./style";
 
 interface IProps {
   product: ICartProduct;
 }
 const CartProduct = ({ product }: IProps) => {
-  const { removeProduct, increaseProductQuantity, decreaseProductQuantity } =
-    useCart();
+  const {
+    total,
+    removeProduct,
+    increaseProductQuantity,
+    decreaseProductQuantity,
+  } = useCart();
   const {
     sku,
     title,
@@ -44,7 +48,7 @@ const CartProduct = ({ product }: IProps) => {
         </S.Desc>
       </S.Details>
       <S.Price>
-        {/* <p>{`${currencyFormat}  ${formatPrice(price, currencyId)}`}</p> */}
+        <p>{`${price * quantity}${currencyFormat}`}</p>
         <div>
           <S.ChangeQuantity
             onClick={handleDecreaseProductQuantity}

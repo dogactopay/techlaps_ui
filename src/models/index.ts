@@ -12,6 +12,7 @@ export interface IProduct {
   currencyFormat: string;
   isFreeShipping: boolean;
   image: string;
+  desi: string;
 }
 
 export interface ICartProduct extends IProduct {
@@ -22,6 +23,7 @@ export interface ICartTotal {
   productQuantity: number;
   installments: number;
   totalPrice: number;
+  totalPriceStr: any;
   currencyId: string;
   currencyFormat: string;
 }

@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { useForm } from 'react-hook-form';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { ToastContainer, toast } from 'react-toastify';
-import axios from 'axios';
+import React from "react";
+import ReactDOM from "react-dom";
+import { useForm } from "react-hook-form";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 function EditProduct(datak: any) {
   const {
@@ -14,15 +14,18 @@ function EditProduct(datak: any) {
   } = useForm();
   const onSubmit = (data: any) => {
     axios
-      .patch(`http://185.209.230.204:8000/products/${datak.product_id}/`, {
+      .patch(`http://localhost:8000/products/${datak.product_id}/`, {
         title: data.title,
         stock_qty: data.stock_qty,
         image: data.image,
+        price: data.price,
+        currencyFormat: data.currencyFormat,
+        desi: data.desi,
 
         // Other user data
       })
       .then(function (response) {
-        toast.success('Ürün Değişti!');
+        toast.success("Ürün Değişti!");
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -32,11 +35,11 @@ function EditProduct(datak: any) {
   };
 
   const onDelete = () => {
-    if (window.confirm('Ürün silinsin mi?')) {
+    if (window.confirm("Ürün silinsin mi?")) {
       axios
-        .delete(`http://185.209.230.204:8000/products/${datak.product_id}/`)
+        .delete(`http://localhost:8000/products/${datak.product_id}/`)
         .then(function (response) {
-          toast.success('Ürün Silindi!');
+          toast.success("Ürün Silindi!");
           setTimeout(() => {
             window.location.reload();
           }, 1000);
@@ -54,7 +57,7 @@ function EditProduct(datak: any) {
           <Form.Label>Ürün Adı</Form.Label>
           <Form.Control
             defaultValue={datak.title}
-            {...register('title', { required: true })}
+            {...register("title", { required: true })}
             type="text"
           />
         </Form.Group>
@@ -62,7 +65,35 @@ function EditProduct(datak: any) {
           <Form.Label>Resim</Form.Label>
           <Form.Control
             defaultValue={datak.image}
-            {...register('image', { required: true })}
+            {...register("image", { required: false })}
+            type="text"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Fiyat</Form.Label>
+          <Form.Control
+            defaultValue={datak.price}
+            {...register("price", { required: false })}
+            type="text"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Para Birimi</Form.Label>
+          <Form.Control
+            defaultValue={datak.currencyFormat}
+            {...register("currencyFormat", { required: false })}
+            as="select"
+          >
+            <option value="₺">₺</option>
+            <option value="$">$</option>
+            <option value="€">€</option>
+          </Form.Control>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Desi</Form.Label>
+          <Form.Control
+            defaultValue={datak.desi}
+            {...register("desi", { required: false })}
             type="text"
           />
         </Form.Group>
@@ -70,7 +101,7 @@ function EditProduct(datak: any) {
           <Form.Label>Stok Miktarı</Form.Label>
           <Form.Control
             defaultValue={datak.stock_qty}
-            {...register('stock_qty', { required: false })}
+            {...register("stock_qty", { required: false })}
             type="number"
           />
         </Form.Group>

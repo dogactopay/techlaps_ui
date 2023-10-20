@@ -1,11 +1,11 @@
-import formatPrice from 'utils/formatPrice';
-import CartProducts from './CartProducts';
+import formatPrice from "utils/formatPrice";
+import CartProducts from "./CartProducts";
 
-import { useCart } from 'contexts/cart-context';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { useCart } from "contexts/cart-context";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
-import * as S from './style';
+import * as S from "./style";
 
 const Cart = () => {
   const { products, total, isOpen, openCart, closeCart } = useCart();
@@ -13,20 +13,20 @@ const Cart = () => {
   const handleCheckout = () => {
     console.log(products);
     if (total.productQuantity) {
-      const idx = localStorage.getItem('idx');
+      const idx = localStorage.getItem("idx");
       axios
-        .post('http://185.209.230.204:8000/products/get_cart/', {
+        .post("http://localhost:8000/products/get_cart/", {
           user: idx,
           order: products,
         })
         .then(function (response) {
-          toast.success('Sipariş Onaya Gönderildi!');
+          toast.success("Sipariş Onaya Gönderildi!");
           setTimeout(() => {
             window.location.reload();
           }, 2000);
         });
     } else {
-      alert('Add some product in the cart!');
+      alert("Add some product in the cart!");
     }
   };
 
@@ -59,11 +59,22 @@ const Cart = () => {
           <CartProducts products={products} />
 
           <S.CartFooter>
-            {/* <S.Sub>SUBTOTAL</S.Sub> */}
+            <S.Sub>SUBTOTAL</S.Sub>
             <S.SubPrice>
               <S.SubPriceValue>
-                Toplam Ürün Adedi : {total.productQuantity}
+                Toplam : {total.productQuantity} adet <br></br>
+                Toplam Tutar :{" "}
+                {total.totalPriceStr["$"] ? total.totalPriceStr["$"] + "$" : ""}
+                {total.totalPriceStr["€"]
+                  ? "+" + total.totalPriceStr["€"] + "€"
+                  : ""}
+                {total.totalPriceStr["₺"]
+                  ? "+" + total.totalPriceStr["₺"] + "₺"
+                  : ""}
               </S.SubPriceValue>
+            </S.SubPrice>
+            <S.SubPrice>
+              <S.SubPriceValue1></S.SubPriceValue1>
             </S.SubPrice>
             <S.CheckoutButton onClick={handleCheckout} autoFocus>
               Gönder
